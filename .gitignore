@@ -1,0 +1,18 @@
+# Uncrustify
+out/*
+
+# Build directories
+build/*
+
+# OS X
+.DS_Store
+
+# Vim
+.*.sw[a-z]
+*.un~
+
+# Glade temp files 
+ui/*.glade~
+ui/*.ui~
+ui/#*#
+
