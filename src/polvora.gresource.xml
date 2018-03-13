@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/org/gnome/polvora/ui">
+        <file preprocess="xml-stripblanks" alias="logviewer.glade">../ui/logviewer.glade</file>
+    </gresource>
+    <gresource prefix="/org/gnome/polvora/gtk">
+        <file preprocess="xml-stripblanks" alias="menu.ui">../ui/menu.ui</file>
+    </gresource>
+</gresources>
