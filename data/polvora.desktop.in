@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=pólvora
+GenericName=Reloading database
+X-GNOME-FullName=pólvora
+Comment=Reloading database
+Keywords=reloading
+Icon=polvora
+TryExec=polvora
+Exec=polvora
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Reloading
+StartupNotify=true
