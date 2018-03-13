@@ -5,6 +5,10 @@
 pólvora is a simple open source reloading database. It's 
 named after the Catalan word for "gunpowder" in English. Enjoy!
 
+Please be aware that pólvora is still very early in development. It currently 
+does not do anything. I have a lot of plans for the application but none
+have actually materialized yet, so please be patient. 
+
 ## Minimum Requirements
 * vala >= 0.36.8
 * glib-2.0 >= 2.40.0
