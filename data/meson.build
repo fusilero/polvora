@@ -4,7 +4,7 @@ foreach size: [ '16x16', '24x24', '32x32', '48x48', '64x64', '128x128', 'scalabl
   if size == 'scalable'
     suffix = 'svg'     
   endif     
-  install_data (join_paths ('hicolor', size, 'apps', 'polvora' + suffix),
+  install_data (join_paths ('hicolor', size, 'apps', 'polvora.' + suffix),
     install_dir: join_paths (icondir, 'hicolor', size, 'actions')
     ) 
 endforeach
