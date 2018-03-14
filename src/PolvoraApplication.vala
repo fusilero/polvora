@@ -63,7 +63,7 @@ public class Application : Gtk.Application {
 
 	  // Add the main layout box
 	  Gtk.Box box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) ;
-	  box.pack_start (switcher.get_stack(), true, true, 0) ;
+	  box.pack_start (switcher.get_stack (), true, true, 0) ;
 
 	  config_dir = this.setup_user_directory (Environment.get_user_config_dir ()) ;
 	  data_dir = this.setup_user_directory (Environment.get_user_data_dir ()) ;
@@ -174,12 +174,12 @@ public class Application : Gtk.Application {
 	  string[] authors = { "Steven Oliver" } ;
 	  Gtk.show_about_dialog (get_active_window (),
 							 "authors", authors,
-							 "comments", "An open source external ballistics calculator.",
-							 "copyright", "Copyright \xc2\xa9 2012-2018 Steven Oliver",
+							 "comments", "An open source reloading library.",
+							 "copyright", "Copyright \xc2\xa9 2018 Steven Oliver",
 							 "license-type", Gtk.License.GPL_3_0,
 							 "program-name", NAME,
 							 "website", "http://steveno.github.io/polvora/",
-							 "website-label", "balística Website",
+							 "website-label", "pólvora Website",
 							 "version", VERSION,
 							 "logo-icon-name", "polvora") ;
    }
