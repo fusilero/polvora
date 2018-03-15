@@ -5,19 +5,14 @@
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>GPL-3.0+</project_license>
     <name>polvora</name>
-    <summary>External ballistics software</summary>
+    <summary>Reloading library</summary>
     <description>
         <p>
-        balística is a basic ballistics calculator for the Gnome Desktop Environment. It
-        provides the ability to calculate the standard drag functions (G1-G8) along with
-        other minor ballistics related calculations like the Greenhill Formula and the 
-        Miller Twist Rule.
+        pólvora is a reloading library for the Gnome Desktop Environment.
         </p>
-        <p>balística’s features include:</p>
+        <p>pólvora's features include:</p>
         <ul>
-            <li>Calculate a round's drag using the G1-G8 drag models</li>
-            <li>Compute a bullet's twist rate using Greenhill or Miller</li>
-            <li>Compute a round's Point Blank Range (PBR)</li>
+            <li>TO DO</li>
         </ul>
     </description>
     <url type="homepage">http://steveno.github.io/polvora/</url>
