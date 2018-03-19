@@ -22,6 +22,7 @@ public class Application : Gtk.Application {
    private Settings settings ;
    private string data_dir ;
    private string config_dir ;
+   private Database db ;
    private Logging logger ;
 
    private const GLib.ActionEntry[] action_entries =
@@ -72,6 +73,8 @@ public class Application : Gtk.Application {
 		 this.log (msg) ;
 	  }) ;
 	  this.logger = Logging.get_default () ;
+
+	  this.db = new Database (data_dir) ;
 
 	  var builder = new Gtk.Builder () ;
 	  try {

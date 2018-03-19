@@ -19,13 +19,19 @@ c_args = [
 
 balisitica = executable (meson.project_name(),
   [ 'PolvoraApplication.vala',
+    'Database.vala',
     'Logging.vala',
     'LogMsg.vala',
 
-    # Calculations
-    'gui/LogViewerDialog.vala'] + resources,
+    # Gui
+    'gui/LogViewerDialog.vala',
+    'gui/CaseBox.vala',
+    'gui/PowderBox.vala',
+    'gui/PrimerBox.vala',
+    'gui/ProjectileBox.vala',
+    ] + resources,
   include_directories: config_h_dir,
-  dependencies: [ glib_dep, gtk_dep, gio_dep, gee_dep ],
+  dependencies: [ glib_dep, gtk_dep, gio_dep, sqlite_dep ],
   c_args: c_args,
   vala_args: vala_args,
   link_args: ['-lm'],
