@@ -17,7 +17,7 @@ have actually materialized yet, so please be patient.
 
 ### Ubuntu
 ```bash
-sudo apt-get install build-essential libgtk-3-dev vala ninja python3-pip
+sudo apt-get install build-essential libgtk-3-dev vala ninja python3-pip libsqlite3-dev
 sudo pip3 install meson-build
 ```
 
