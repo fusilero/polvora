@@ -1,5 +1,6 @@
 # pólvora ![](https://raw.githubusercontent.com/steveno/polvora/master/data/hicolor/48x48/apps/polvora.png)
-[![Stories in Ready](https://badge.waffle.io/steveno/polvora.png?label=ready)](https://waffle.io/steveno/polvora)
+[![Build Status](https://img.shields.io/travis/steveno/polvora.svg?style=flat)](https://travis-ci.org/steveno/polvora)
+[![license](https://img.shields.io/github/license/steveno/polvora.svg?style=flat)](https://github.com/steveno/polvora/blob/master/LICENSE.txt)
 
 ## About
 pólvora is a simple open source reloading database. It's 
