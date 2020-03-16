@@ -1,4 +1,4 @@
-/* Copyright 2018 Steven Oliver <oliver.steven@gmail.com>
+/* Copyright 2018-2020 Steven Oliver <oliver.steven@gmail.com>
  *
  * This file is part of pólvora.
  *
@@ -17,7 +17,7 @@
  */
 
 
-[GtkTemplate (ui = "/org/gnome/polvora/ui/logviewer.glade")]
+[GtkTemplate (ui = "/org/fusilero/polvora/ui/logviewer.glade")]
 public class Polvora.LogViewerDialog : Gtk.Dialog {
    [GtkChild]
    public Gtk.Button btnClear ;

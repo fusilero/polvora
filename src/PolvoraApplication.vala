@@ -1,4 +1,4 @@
-/* Copyright 2018 Steven Oliver <oliver.steven@gmail.com>
+/* Copyright 2018-2020 Steven Oliver <oliver.steven@gmail.com>
  *
  * This file is part of pólvora.
  *
@@ -19,25 +19,26 @@
 
 public class Application : Gtk.Application {
    public Gtk.ApplicationWindow main_window ;
-   private Settings settings ;
+   private Polvora.CaseBox case_box ;
+   private Polvora.PowderBox powder_box ;
+   private Polvora.PrimerBox primer_box ;
+   private Polvora.ProjectileBox projectile_box ;
    private string data_dir ;
-   private string config_dir ;
-   private Database db ;
    private Logging logger ;
 
    private const GLib.ActionEntry[] action_entries =
    {
-	  { "view_log", view_log_cb },
-	  { "help", help_cb },
 	  { "about", about_cb },
+	  { "help", help_cb },
 	  { "quit", quit_cb },
+	  { "view_log", view_log_cb },
    } ;
 
    /**
     * Constructor
     */
    public Application () {
-	  GLib.Object (application_id: "org.gnome.polvora", flags : ApplicationFlags.HANDLES_OPEN) ;
+	  GLib.Object (application_id: "org.fusilero.polvora", flags : ApplicationFlags.HANDLES_OPEN) ;
    }
 
    /**
@@ -45,8 +46,6 @@ public class Application : Gtk.Application {
     */
    protected override void startup() {
 	  base.startup () ;
-
-	  settings = new Settings ("org.gnome.polvora") ;
 
 	  add_action_entries (action_entries, this) ;
 	  main_window = new Gtk.ApplicationWindow (this) ;
@@ -56,17 +55,13 @@ public class Application : Gtk.Application {
 	  main_window.window_position = Gtk.WindowPosition.CENTER ;
 
 	  // HeaderBar
-	  Gtk.StackSwitcher switcher = this.build_switcher () ;
 	  Gtk.HeaderBar headerbar = new Gtk.HeaderBar () ;
-	  headerbar.set_custom_title (switcher) ;
 	  headerbar.set_show_close_button (true) ;
 	  main_window.set_titlebar (headerbar) ;
 
 	  // Add the main layout box
 	  Gtk.Box box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) ;
-	  box.pack_start (switcher.get_stack (), true, true, 0) ;
 
-	  config_dir = this.setup_user_directory (Environment.get_user_config_dir ()) ;
 	  data_dir = this.setup_user_directory (Environment.get_user_data_dir ()) ;
 
 	  Logging.get_default ().publish.connect ((msg) => {
@@ -74,11 +69,9 @@ public class Application : Gtk.Application {
 	  }) ;
 	  this.logger = Logging.get_default () ;
 
-	  this.db = new Database (data_dir) ;
-
 	  var builder = new Gtk.Builder () ;
 	  try {
-		 builder.add_from_resource ("/org/gnome/polvora/gtk/menu.ui") ;
+		 builder.add_from_resource ("/org/fusilero/pólvora/gtk/menu.ui") ;
 	  } catch ( Error e ){
 		 logger.publish (new LogMsg (e.message)) ;
 	  }
@@ -92,32 +85,18 @@ public class Application : Gtk.Application {
 	  main_window.show_all () ;
    }
 
-   protected override void shutdown() {
-	  base.shutdown () ;
-   }
-
-   private Gtk.StackSwitcher build_switcher() {
-	  Gtk.Stack stack = new Gtk.Stack () ;
-	  Gtk.StackSwitcher switcher = new Gtk.StackSwitcher () ;
-
-	  stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE) ;
-	  switcher.set_stack (stack) ;
-
-	  return switcher ;
-   }
-
    /**
     * Return the current user's data directory
     */
    private string setup_user_directory(string user_dir) {
-	  string dir = user_dir + "/polvora/" ;
+	  string dir = user_dir + "/pólvora/" ;
 	  try {
 		 File file = File.new_for_path (dir) ;
 		 file.make_directory_with_parents () ;
 	  } catch ( Error err ){
 		 // The user may have already created the directory, so don't throw EXISTS.
 		 if( !(err is IOError.EXISTS)){
-			Gtk.MessageDialog msg = new Gtk.MessageDialog (this.main_window, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "Failed to create XDG directory " + user_dir) ;
+			Gtk.MessageDialog msg = new Gtk.MessageDialog (this.main_window, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, _("Failed to create XDG directory ") + user_dir) ;
 			msg.response.connect ((response_id) => {
 			   switch( response_id ){
 			   case Gtk.ResponseType.OK:
@@ -164,9 +143,9 @@ public class Application : Gtk.Application {
     */
    private void help_cb() {
 	  try {
-		 Gtk.show_uri_on_window (get_active_window (), "help:polvora", Gtk.get_current_event_time ()) ;
+		 Gtk.show_uri_on_window (get_active_window (), "help:pólvora", Gtk.get_current_event_time ()) ;
 	  } catch ( Error err ){
-		 Logging.get_default ().publish (new LogMsg ("Error showing help")) ;
+		 Logging.get_default ().publish (new LogMsg (_("Error showing help"))) ;
 	  }
    }
 
@@ -177,21 +156,21 @@ public class Application : Gtk.Application {
 	  string[] authors = { "Steven Oliver" } ;
 	  Gtk.show_about_dialog (get_active_window (),
 							 "authors", authors,
-							 "comments", "An open source reloading library.",
-							 "copyright", "Copyright \xc2\xa9 2018 Steven Oliver",
+							 "comments", _("An open source handloading database."),
+							 "copyright", _("Copyright \xc2\xa9 2012-2020 Steven Oliver"),
 							 "license-type", Gtk.License.GPL_3_0,
 							 "program-name", NAME,
-							 "website", "http://steveno.github.io/polvora/",
+							 "website", "http://steveno.github.io/pólvora/",
 							 "website-label", "pólvora Website",
 							 "version", VERSION,
-							 "logo-icon-name", "polvora") ;
+							 "logo-icon-name", "pólvora") ;
    }
 
    /**
     * Append new log entry to the log
     */
    private void log(LogMsg msg) {
-	  File file = File.new_for_path (this.data_dir + "polvora.log") ;
+	  File file = File.new_for_path (this.data_dir + "pólvora.log") ;
 	  var dt = new DateTime.now_local ().format ("%F %T") ;
 	  string entry = dt.to_string () + "\t" + msg.level.to_string () + "\t" + msg.message + "\n" ;
 
