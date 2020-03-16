@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.1 
 
-Copyright (C) 2017-2020 Steven Oliver <oliver.steven@gmail.com
+Copyright (C) 2018-2020 Steven Oliver <oliver.steven@gmail.com
 
 This file is part of polvora.
 
@@ -26,7 +26,7 @@ Author: Steven Oliver
   <!-- interface-license-type gplv3 -->
   <!-- interface-name polvora -->
   <!-- interface-description An open source reloading database. -->
-  <!-- interface-copyright 2017-2020 Steven Oliver <oliver.steven@gmail.com -->
+  <!-- interface-copyright 2018-2020 Steven Oliver <oliver.steven@gmail.com -->
   <!-- interface-authors Steven Oliver -->
   <template class="PolvoraLogViewerDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
