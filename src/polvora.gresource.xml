@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-    <gresource prefix="/org/gnome/polvora/ui">
+    <gresource prefix="/org/fusilero/polvora/ui">
         <file preprocess="xml-stripblanks" alias="case.glade">../ui/case.glade</file>
     </gresource>
-    <gresource prefix="/org/gnome/polvora/ui">
-        <file preprocess="xml-stripblanks" alias="powder.glade">../ui/powder.glade</file>
-    </gresource>
-    <gresource prefix="/org/gnome/polvora/ui">
-        <file preprocess="xml-stripblanks" alias="primer.glade">../ui/primer.glade</file>
-    </gresource>
-    <gresource prefix="/org/gnome/polvora/ui">
-        <file preprocess="xml-stripblanks" alias="projectile.glade">../ui/projectile.glade</file>
-    </gresource>
-    <gresource prefix="/org/gnome/polvora/ui">
+    <gresource prefix="/org/fusilero/polvora/ui">
         <file preprocess="xml-stripblanks" alias="logviewer.glade">../ui/logviewer.glade</file>
     </gresource>
-    <gresource prefix="/org/gnome/polvora/gtk">
+    <gresource prefix="/org/fusilero/polvora/ui">
+        <file preprocess="xml-stripblanks" alias="main.glade">../ui/main.glade</file>
+    </gresource>
+    <gresource prefix="/org/fusilero/polvora/ui">
+        <file preprocess="xml-stripblanks" alias="powder.glade">../ui/powder.glade</file>
+    </gresource>
+    <gresource prefix="/org/fusilero/polvora/ui">
+        <file preprocess="xml-stripblanks" alias="primer.glade">../ui/primer.glade</file>
+    </gresource>
+    <gresource prefix="/org/fusilero/polvora/ui">
+        <file preprocess="xml-stripblanks" alias="projectile.glade">../ui/projectile.glade</file>
+    </gresource>
+    <gresource prefix="/org/fusilero/polvora/gtk">
         <file preprocess="xml-stripblanks" alias="menu.ui">../ui/menu.ui</file>
     </gresource>
 </gresources>
