@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 
+<!-- Generated with glade 3.22.1 
 
-Copyright (C) 2017 Steven Oliver
+Copyright (C) 2017-2020 Steven Oliver <oliver.steven@gmail.com
 
 This file is part of polvora.
 
@@ -22,11 +22,11 @@ Author: Steven Oliver
 
 -->
 <interface>
-  <requires lib="gtk+" version="3.10"/>
+  <requires lib="gtk+" version="3.16"/>
   <!-- interface-license-type gplv3 -->
   <!-- interface-name polvora -->
-  <!-- interface-description An open source external balistics software package. -->
-  <!-- interface-copyright 2017 Steven Oliver -->
+  <!-- interface-description An open source reloading database. -->
+  <!-- interface-copyright 2017-2020 Steven Oliver <oliver.steven@gmail.com -->
   <!-- interface-authors Steven Oliver -->
   <template class="PolvoraProjectileBox" parent="GtkBox">
     <property name="visible">True</property>
@@ -115,6 +115,7 @@ Author: Steven Oliver
           <object class="GtkEntry" id="entry1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="input_purpose">number</property>
           </object>
           <packing>
             <property name="left_attach">3</property>
@@ -135,6 +136,7 @@ Author: Steven Oliver
           <object class="GtkEntry" id="entry2">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="input_purpose">number</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -142,11 +144,14 @@ Author: Steven Oliver
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnSaveCase">
-            <property name="label" translatable="yes">Save</property>
+          <object class="GtkButton" id="btnAddCase">
+            <property name="label" translatable="yes">Add</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
           </object>
           <packing>
             <property name="left_attach">3</property>
@@ -168,6 +173,7 @@ Author: Steven Oliver
         <property name="height_request">170</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <property name="vexpand">True</property>
         <child internal-child="selection">
           <object class="GtkTreeSelection" id="treeview-selection13"/>
         </child>
@@ -178,9 +184,5 @@ Author: Steven Oliver
         <property name="position">1</property>
       </packing>
     </child>
-    <child>
-      <placeholder/>
-    </child>
   </template>
 </interface>
-
