@@ -25,6 +25,8 @@ balisitica = executable (meson.project_name(),
     # Gui
     'LogViewerDialog.vala',
     'CaseBox.vala',
+    'DatatablesWindow.vala',
+    'MainBox.vala',
     'PowderBox.vala',
     'PrimerBox.vala',
     'ProjectileBox.vala',
