@@ -18,186 +18,214 @@
 
 
 public class Application : Gtk.Application {
-   public Gtk.ApplicationWindow main_window ;
-   private Polvora.MainBox main_box ;
-   private string data_dir ;
-   private Logging logger ;
+	public Gtk.ApplicationWindow main_window;
+	private Polvora.MainBox main_box;
+	private string data_dir;
+	private Logging logger;
 
-   private const GLib.ActionEntry[] action_entries =
-   {
-	  { "about", about_cb },
-	  { "datatables", datatables_cb },
-	  { "help", help_cb },
-	  { "quit", quit_cb },
-	  { "view_log", view_log_cb },
-   } ;
+	private const GLib.ActionEntry[] action_entries =
+	{
+		{ "about",	about_cb      },
+		{ "datatables", datatables_cb },
+		{ "help",	help_cb	      },
+		{ "quit",	quit_cb	      },
+		{ "view_log",	view_log_cb   },
+	};
 
-   /**
-    * Constructor
-    */
-   public Application () {
-	  GLib.Object (application_id: "org.fusilero.polvora", flags : ApplicationFlags.HANDLES_OPEN) ;
-   }
+	/**
+	 * Constructor
+	 */
+	public Application()
+	{
+		GLib.Object(application_id: "org.fusilero.polvora", flags : ApplicationFlags.HANDLES_OPEN);
+	}
 
-   /**
-    * Override the default GTK startup procedure
-    */
-   protected override void startup() {
-	  base.startup () ;
 
-	  add_action_entries (action_entries, this) ;
-	  main_window = new Gtk.ApplicationWindow (this) ;
+	/**
+	 * Override the default GTK startup procedure
+	 */
+	protected override void startup()
+	{
+		base.startup();
 
-	  // Setup the main window
-	  main_window.title = NAME ;
-	  main_window.window_position = Gtk.WindowPosition.CENTER ;
+		add_action_entries(action_entries, this);
+		main_window = new Gtk.ApplicationWindow(this);
 
-	  data_dir = this.setup_user_directory (Environment.get_user_data_dir ()) ;
+		// Setup the main window
+		main_window.title = NAME;
+		main_window.window_position = Gtk.WindowPosition.CENTER;
 
-	  Logging.get_default ().publish.connect ((msg) => {
-		 this.log (msg) ;
-	  }) ;
-	  this.logger = Logging.get_default () ;
+		data_dir = this.setup_user_directory(Environment.get_user_data_dir());
 
-	  var builder = new Gtk.Builder () ;
-	  try {
-		 builder.add_from_resource ("/org/fusilero/polvora/gtk/menu.ui") ;
-	  } catch ( Error e ){
-		 logger.publish (new LogMsg (e.message)) ;
-	  }
+		Logging.get_default().publish.connect((msg) => {
+			this.log(msg);
+		});
+		this.logger = Logging.get_default();
 
-	  var menu = builder.get_object ("appmenu") as GLib.MenuModel ;
-	  set_app_menu (menu) ;
+		var builder = new Gtk.Builder();
+		try {
+			builder.add_from_resource("/org/fusilero/polvora/gtk/menu.ui");
+		}
+		catch (Error e) {
+			logger.publish(new LogMsg(e.message));
+		}
 
-	  // Attach the box (with the notebook) the main window and roll
-	  this.main_box = new Polvora.MainBox (this.main_window) ;
-	  main_window.add (this.main_box) ;
-	  this.add_window (main_window) ;
-	  main_window.show_all () ;
-   }
+		var menu = builder.get_object("appmenu") as GLib.MenuModel;
+		set_app_menu(menu);
 
-   /**
-    * Return the current user's data directory
-    */
-   private string setup_user_directory(string user_dir) {
-	  string dir = user_dir + "/polvora/" ;
-	  try {
-		 File file = File.new_for_path (dir) ;
-		 file.make_directory_with_parents () ;
-	  } catch ( Error err ){
-		 // The user may have already created the directory, so don't throw EXISTS.
-		 if( !(err is IOError.EXISTS)){
-			Gtk.MessageDialog msg = new Gtk.MessageDialog (this.main_window, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, _("Failed to create XDG directory ") + user_dir) ;
-			msg.response.connect ((response_id) => {
-			   switch( response_id ){
-			   case Gtk.ResponseType.OK:
-				  stdout.puts ("Ok\n") ;
-				  break ;
-			   }
+		// Attach the box (with the notebook) the main window and roll
+		this.main_box = new Polvora.MainBox(this.main_window);
+		main_window.add(this.main_box);
+		this.add_window(main_window);
+		main_window.show_all();
+	}
 
-			   msg.destroy () ;
-			}) ;
-			msg.show () ;
-		 }
-	  }
 
-	  return dir ;
-   }
+	/**
+	 * Return the current user's data directory
+	 */
+	private string setup_user_directory(string user_dir)
+	{
+		string dir = user_dir + "/polvora/";
 
-   /**
-    * Present the existing main window, or create a new one.
-    */
-   protected override void activate() {
-	  base.activate () ;
+		try {
+			File file = File.new_for_path(dir);
+			file.make_directory_with_parents();
+		}
+		catch (Error err) {
+			// The user may have already created the directory, so don't throw EXISTS.
+			if (!(err is IOError.EXISTS)) {
+				Gtk.MessageDialog msg = new Gtk.MessageDialog(this.main_window, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, _("Failed to create XDG directory ") + user_dir);
+				msg.response.connect((response_id) => {
+					switch (response_id)
+					{
+					case Gtk.ResponseType.OK:
+						stdout.puts("Ok\n");
+						break;
+					}
 
-	  this.main_window.present () ;
-   }
+					msg.destroy();
+				});
+				msg.show();
+			}
+		}
 
-   /**
-    * Quit application
-    */
-   private void quit_cb() {
-	  get_active_window ().destroy () ;
-   }
+		return (dir);
+	}
 
-   /**
-    * Show log viewer
-    */
-   private void view_log_cb() {
-	  var dialog = new Polvora.LogViewerDialog (this.data_dir + "polvora.log") ;
-	  dialog.set_transient_for (get_active_window ()) ;
-	  dialog.show_all () ;
-   }
 
-   /**
-    * Show help browser
-    */
-   private void help_cb() {
-	  try {
-		 Gtk.show_uri_on_window (get_active_window (), "help:polvora", Gtk.get_current_event_time ()) ;
-	  } catch ( Error err ){
-		 Logging.get_default ().publish (new LogMsg (_("Error showing help"))) ;
-	  }
-   }
+	/**
+	 * Present the existing main window, or create a new one.
+	 */
+	protected override void activate()
+	{
+		base.activate();
 
-   /**
-    * Show about dialog
-    */
-   private void about_cb() {
-	  string[] authors = { "Steven Oliver" } ;
-	  Gtk.show_about_dialog (get_active_window (),
-							 "authors", authors,
-							 "comments", _("An open source handloading database."),
-							 "copyright", _("Copyright \xc2\xa9 2018-2020 Steven Oliver"),
-							 "license-type", Gtk.License.GPL_3_0,
-							 "program-name", NAME,
-							 "website", "http://steveno.github.io/polvora/",
-							 "website-label", "pólvora Website",
-							 "version", VERSION,
-							 "logo-icon-name", "polvora") ;
-   }
-   
-   /**
-    * Show datatables window
-    */
-   private void datatables_cb() {
-   		var datatables_window = new Polvora.DatatablesWindow();
+		this.main_window.present();
+	}
+
+
+	/**
+	 * Quit application
+	 */
+	private void quit_cb()
+	{
+		get_active_window().destroy();
+	}
+
+
+	/**
+	 * Show log viewer
+	 */
+	private void view_log_cb()
+	{
+		var dialog = new Polvora.LogViewerDialog(this.data_dir + "polvora.log");
+
+		dialog.set_transient_for(get_active_window());
+		dialog.show_all();
+	}
+
+
+	/**
+	 * Show help browser
+	 */
+	private void help_cb()
+	{
+		try {
+			Gtk.show_uri_on_window(get_active_window(), "help:polvora", Gtk.get_current_event_time());
+		}
+		catch (Error err) {
+			Logging.get_default().publish(new LogMsg(_("Error showing help")));
+		}
+	}
+
+
+	/**
+	 * Show about dialog
+	 */
+	private void about_cb()
+	{
+		string[] authors = { "Steven Oliver" };
+		Gtk.show_about_dialog(get_active_window(),
+		    "authors", authors,
+		    "comments", _("An open source handloading database."),
+		    "copyright", _("Copyright \xc2\xa9 2018-2020 Steven Oliver"),
+		    "license-type", Gtk.License.GPL_3_0,
+		    "program-name", NAME,
+		    "website", "http://steveno.github.io/polvora/",
+		    "website-label", "pólvora Website",
+		    "version", VERSION,
+		    "logo-icon-name", "polvora");
+	}
+
+
+	/**
+	 * Show datatables window
+	 */
+	private void datatables_cb()
+	{
+		var datatables_window = new Polvora.DatatablesWindow();
+
 		datatables_window.deletable = true;
 		datatables_window.decorated = true;
 		datatables_window.destroy_with_parent = true;
 		datatables_window.show_all();
-   }
+	}
 
-   /**
-    * Append new log entry to the log
-    */
-   private void log(LogMsg msg) {
-	  File file = File.new_for_path (this.data_dir + "polvora.log") ;
-	  var dt = new DateTime.now_local ().format ("%F %T") ;
-	  string entry = dt.to_string () + "\t" + msg.level.to_string () + "\t" + msg.message + "\n" ;
 
-	  try {
-		 FileOutputStream os = file.append_to (FileCreateFlags.NONE) ;
-		 os.write (entry.data) ;
-	  } catch ( Error e ){
-		 error ("Error: %s\n", e.message) ;
-	  }
-   }
+	/**
+	 * Append new log entry to the log
+	 */
+	private void log(LogMsg msg)
+	{
+		File file = File.new_for_path(this.data_dir + "polvora.log");
+		var dt = new DateTime.now_local().format("%F %T");
+		string entry = dt.to_string() + "\t" + msg.level.to_string() + "\t" + msg.message + "\n";
 
-   /**
-    * Main function
-    */
-   public static int main(string[] args) {
-	  // Setup internationalization
-	  Intl.setlocale (LocaleCategory.ALL, "") ;
-	  Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR) ;
-	  Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8") ;
-	  Intl.textdomain (GETTEXT_PACKAGE) ;
+		try {
+			FileOutputStream os = file.append_to(FileCreateFlags.NONE);
+			os.write(entry.data);
+		}
+		catch (Error e) {
+			error("Error: %s\n", e.message);
+		}
+	}
 
-	  Environment.set_application_name (NAME) ;
 
-	  var app = new Application () ;
-	  return app.run (args) ;
-   }
+	/**
+	 * Main function
+	 */
+	public static int main(string[] args)
+	{
+		// Setup internationalization
+		Intl.setlocale(LocaleCategory.ALL, "");
+		Intl.bindtextdomain(GETTEXT_PACKAGE, LOCALE_DIR);
+		Intl.bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+		Intl.textdomain(GETTEXT_PACKAGE);
 
+		Environment.set_application_name(NAME);
+
+		var app = new Application();
+		return (app.run(args));
+	}
 }

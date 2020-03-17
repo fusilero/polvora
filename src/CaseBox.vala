@@ -16,8 +16,6 @@
  * along with pólvora.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-[GtkTemplate (ui = "/org/fusilero/polvora/ui/case.glade")]
+[GtkTemplate(ui = "/org/fusilero/polvora/ui/case.glade")]
 public class Polvora.CaseBox : Gtk.Box {
-
 }
-

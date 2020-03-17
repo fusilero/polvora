@@ -16,8 +16,6 @@
  * along with pólvora.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-[GtkTemplate (ui = "/org/fusilero/polvora/ui/powder.glade")]
+[GtkTemplate(ui = "/org/fusilero/polvora/ui/powder.glade")]
 public class Polvora.PowderBox : Gtk.Box {
-
 }
-

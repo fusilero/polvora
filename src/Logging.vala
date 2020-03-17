@@ -17,17 +17,15 @@
  */
 
 public class Logging {
+	public signal void publish(LogMsg msg);
 
-   public signal void publish(LogMsg msg) ;
+	private static Logging _default;
 
-   private static Logging _default ;
-
-   public static Logging get_default() {
-	  if( _default == null ){
-		 _default = new Logging () ;
-	  }
-	  return _default ;
-   }
-
+	public static Logging get_default()
+	{
+		if (_default == null) {
+			_default = new Logging();
+		}
+		return (_default);
+	}
 }
-

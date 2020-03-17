@@ -16,19 +16,18 @@
  * along with pólvora.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-[GtkTemplate (ui = "/org/fusilero/polvora/ui/main.glade")]
+[GtkTemplate(ui = "/org/fusilero/polvora/ui/main.glade")]
 public class Polvora.MainBox : Gtk.Box {
-   private Gtk.Window main_window ;
-   private Logging logger ;
-   
-   /**
-    * Constructor
-    */
-   public MainBox (Gtk.Window main_window) {
-	  this.main_window = main_window ;
+	private Gtk.Window main_window;
+	private Logging logger;
 
-	  this.logger = Logging.get_default () ;
-   }
+	/**
+	 * Constructor
+	 */
+	public MainBox(Gtk.Window main_window)
+	{
+		this.main_window = main_window;
 
+		this.logger = Logging.get_default();
+	}
 }
-

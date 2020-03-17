@@ -17,46 +17,51 @@
  */
 
 public class Database {
+	private Logging logger;
+	public Sqlite.Database db;
 
-   private Logging logger ;
-   public Sqlite.Database db ;
+	public static Database(string db_location)
+	{
+		this.logger = Logging.get_default();
+		this.db = init(db_location);
+	}
 
-   public static Database (string db_location) {
-	  this.logger = Logging.get_default () ;
-	  this.db = init (db_location) ;
-   }
 
-   public Sqlite.Database init(string db_location) {
-	  Sqlite.Database new_db ;
-	  int rc = Sqlite.Database.open (db_location + "/polvora.db", out new_db) ;
-	  if( rc != Sqlite.OK ){
-		 logger.publish (new LogMsg ("Can't open database: " + this.db.errmsg ())) ;
-	  }
+	public Sqlite.Database init(string db_location)
+	{
+		Sqlite.Database new_db;
+		int rc = Sqlite.Database.open(db_location + "/polvora.db", out new_db);
+		if (rc != Sqlite.OK) {
+			logger.publish(new LogMsg("Can't open database: " + this.db.errmsg()));
+		}
 
-	  return new_db ;
-   }
+		return (new_db);
+	}
 
-   public int execute_query(string sql) {
-	  int rc ;
-	  string errmsg ;
 
-	  rc = db.exec (sql, null, out errmsg) ;
-	  if( rc != Sqlite.OK ){
-		 logger.publish (new LogMsg (errmsg)) ;
-	  }
-	  return rc ;
-   }
+	public int execute_query(string sql)
+	{
+		int rc;
+		string errmsg;
 
-   public Sqlite.Statement execute_statement(string sql) {
-	  Sqlite.Statement stmt ;
-	  int rc ;
+		rc = db.exec(sql, null, out errmsg);
+		if (rc != Sqlite.OK) {
+			logger.publish(new LogMsg(errmsg));
+		}
+		return (rc);
+	}
 
-	  rc = db.prepare_v2 (sql, sql.length, out stmt) ;
-	  if( rc != Sqlite.OK ){
-		 logger.publish (new LogMsg ("Error preparing query: " + db.errmsg ())) ;
-	  }
 
-	  return stmt ;
-   }
+	public Sqlite.Statement execute_statement(string sql)
+	{
+		Sqlite.Statement stmt;
+		int rc;
 
+		rc = db.prepare_v2(sql, sql.length, out stmt);
+		if (rc != Sqlite.OK) {
+			logger.publish(new LogMsg("Error preparing query: " + db.errmsg()));
+		}
+
+		return (stmt);
+	}
 }
