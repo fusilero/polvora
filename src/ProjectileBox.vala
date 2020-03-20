@@ -18,4 +18,10 @@
 
 [GtkTemplate(ui = "/org/fusilero/polvora/ui/projectile.glade")]
 public class Polvora.ProjectileBox : Gtk.Box {
+	/**
+	 * Constructor
+	 */
+	public ProjectileBox()
+	{
+	}
 }

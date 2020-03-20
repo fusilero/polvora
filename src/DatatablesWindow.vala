@@ -23,8 +23,6 @@ public class Polvora.DatatablesWindow : Gtk.Window {
 	private Polvora.PrimerBox primer_content;
 	private Polvora.ProjectileBox projectile_content;
 
-	private Logging logger;
-
 	/**
 	 * Constructor
 	 */
@@ -40,6 +38,8 @@ public class Polvora.DatatablesWindow : Gtk.Window {
 		// Add the main layout box
 		Gtk.Box box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
 		box.pack_start(switcher.get_stack(), true, true, 0);
+
+		this.add(box);
 	}
 
 	private Gtk.StackSwitcher build_switcher()

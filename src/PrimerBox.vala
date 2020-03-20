@@ -18,4 +18,10 @@
 
 [GtkTemplate(ui = "/org/fusilero/polvora/ui/primer.glade")]
 public class Polvora.PrimerBox : Gtk.Box {
+	/**
+	 * Constructor
+	 */
+	public PrimerBox()
+	{
+	}
 }

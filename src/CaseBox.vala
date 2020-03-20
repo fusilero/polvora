@@ -18,4 +18,10 @@
 
 [GtkTemplate(ui = "/org/fusilero/polvora/ui/case.glade")]
 public class Polvora.CaseBox : Gtk.Box {
+	/**
+	 * Constructor
+	 */
+	public CaseBox()
+	{
+	}
 }
