@@ -16,12 +16,18 @@
  * along with pólvora.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-[GtkTemplate(ui = "/org/fusilero/polvora/ui/primer.glade")]
-public class Polvora.PrimerBox : Gtk.Box {
+[GtkTemplate(ui = "/org/fusilero/polvora/ui/main.glade")]
+public class Polvora.MainBox : Gtk.Box {
+	private Gtk.Window main_window;
+	private Logging logger;
+
 	/**
 	 * Constructor
 	 */
-	public PrimerBox()
+	public MainBox(Gtk.Window main_window)
 	{
+		this.main_window = main_window;
+
+		this.logger = Logging.get_default();
 	}
 }

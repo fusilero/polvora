@@ -1,4 +1,4 @@
-/* Copyright 2018 Steven Oliver <oliver.steven@gmail.com>
+/* Copyright 2018-2020 Steven Oliver <oliver.steven@gmail.com>
  *
  * This file is part of pólvora.
  *
@@ -17,48 +17,50 @@
  */
 
 public class LogMsg {
+	public enum LogLevel {
+		DEBUG,
+		INFO,
+		WARNING,
+		ERROR,
+		FATAL;
 
-   public enum LogLevel {
-	  DEBUG,
-	  INFO,
-	  WARNING,
-	  ERROR,
-	  FATAL ;
+		public string to_string()
+		{
+			switch (this)
+			{
+			case DEBUG:
+				return ("DEBUG");
 
-	  public string to_string() {
-		 switch( this ){
-		 case DEBUG:
-			return "DEBUG" ;
+			case INFO:
+				return ("INFO");
 
-		 case INFO:
-			return "INFO" ;
+			case WARNING:
+				return ("WARNING");
 
-		 case WARNING:
-			return "WARNING" ;
+			case ERROR:
+				return ("ERROR");
 
-		 case ERROR:
-			return "ERROR" ;
+			case FATAL:
+				return ("FATAL");
 
-		 case FATAL:
-			return "FATAL" ;
+			default:
+				assert_not_reached();
+			}
+		}
+	}
 
-		 default:
-			assert_not_reached () ;
-		 }
-	  }
+	public LogLevel level { get; set; }
+	public string message { get; set; }
 
-   }
+	public LogMsg(string message)
+	{
+		this.full(LogLevel.ERROR, message);
+	}
 
-   public LogLevel level { get ; set ; }
-   public string message { get ; set ; }
 
-   public LogMsg (string message) {
-	  this.full (LogLevel.ERROR, message) ;
-   }
-
-   public LogMsg.full (LogLevel level, string message) {
-	  this.level = level ;
-	  this.message = message ;
-   }
+	public LogMsg.full(LogLevel level, string message)
+	{
+		this.level = level;
+		this.message = message;
+	}
 }
-

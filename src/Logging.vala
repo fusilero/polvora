@@ -1,4 +1,4 @@
-/* Copyright 2018 Steven Oliver <oliver.steven@gmail.com>
+/* Copyright 2018-2020 Steven Oliver <oliver.steven@gmail.com>
  *
  * This file is part of pólvora.
  *
@@ -17,17 +17,15 @@
  */
 
 public class Logging {
+	public signal void publish(LogMsg msg);
 
-   public signal void publish(LogMsg msg) ;
+	private static Logging _default;
 
-   private static Logging _default ;
-
-   public static Logging get_default() {
-	  if( _default == null ){
-		 _default = new Logging () ;
-	  }
-	  return _default ;
-   }
-
+	public static Logging get_default()
+	{
+		if (_default == null) {
+			_default = new Logging();
+		}
+		return (_default);
+	}
 }
-

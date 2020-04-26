@@ -1,4 +1,4 @@
-/* Copyright 2018 Steven Oliver <oliver.steven@gmail.com>
+/* Copyright 2018-2020 Steven Oliver <oliver.steven@gmail.com>
  *
  * This file is part of pólvora.
  *
@@ -16,8 +16,12 @@
  * along with pólvora.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-[GtkTemplate (ui = "/org/gnome/polvora/ui/powder.glade")]
+[GtkTemplate(ui = "/org/fusilero/polvora/ui/powder.glade")]
 public class Polvora.PowderBox : Gtk.Box {
-
+	/**
+	 * Constructor
+	 */
+	public PowderBox()
+	{
+	}
 }
-

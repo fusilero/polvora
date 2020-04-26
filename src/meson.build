@@ -5,7 +5,6 @@ resources = gnome.compile_resources ('resources', 'polvora.gresource.xml',
 
 vala_args = [ 
   '--target-glib', glib_min_version,
-  '--thread',
   '--enable-checking',
   '--gresources', resource_files
 ]
@@ -26,6 +25,8 @@ balisitica = executable (meson.project_name(),
     # Gui
     'LogViewerDialog.vala',
     'CaseBox.vala',
+    'DatatablesWindow.vala',
+    'MainBox.vala',
     'PowderBox.vala',
     'PrimerBox.vala',
     'ProjectileBox.vala',
